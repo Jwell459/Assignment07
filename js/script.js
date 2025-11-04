@@ -22,22 +22,15 @@ form.addEventListener('submit', (e) => {
     let department = $('department').value
 
     // INSERT A NEW ROW AT THE END OF THE EMPLOYEES TABLE
-    let tr = document.createElement('tr')
-    tr.id = 'newrow'
-    table.appendChild(tr)
+    let row = table.insertRow()
 
     // INSERT A CELL FOR EACH ITEM WITHIN THE NEW ROW
-    let idCell = document.createElement('td')
-    let nameCell = document.createElement('td')
-    let extCell = document.createElement('td')
-    let emailCell = document.createElement('td')
-    let deptCell = document.createElement('td')
-
-    tr.appendChild(idCell)
-    tr.appendChild(nameCell)
-    tr.appendChild(extCell)
-    tr.appendChild(emailCell)
-    tr.appendChild(deptCell)
+    let idCell = row.insertCell()
+    let nameCell = row.insertCell()
+    let extCell = row.insertCell()
+    let emailCell = row.insertCell()
+    let deptCell = row.insertCell()
+    let delCell = row.insertCell()
 
     // APPEND THE TEXT VALUES AS TEXT NODES WITHIN THE CELLS
     let idText = document.createTextNode(id)
@@ -56,7 +49,7 @@ form.addEventListener('submit', (e) => {
     let deleteBtn = document.createElement('button')
     deleteBtn.className = 'btn btn-danger btn-sm float-end delete'
     let deleteText = document.createTextNode('X')
-    tr.appendChild(deleteBtn)
+    delCell.appendChild(deleteBtn)
     deleteBtn.appendChild(deleteText)
 
     // RESET THE FORM
@@ -74,7 +67,7 @@ form.addEventListener('submit', (e) => {
 // DELETE EMPLOYEE
 table.addEventListener('click', (e) => {
     if (e.target.classList.contains('delete')) {
-        table.removeChild(e.target.parentElement)
+        table.deleteRow(e.target.parentElement.parentElement.rowIndex)
         empCount--
         empCounter.value = empCount
     }
